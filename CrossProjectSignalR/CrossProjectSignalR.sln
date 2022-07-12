@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossProjectSignalR.Blazor", "CrossProjectSignalR.Blazor\CrossProjectSignalR.Blazor.csproj", "{FBEFB7D9-EBA6-4C15-B8BA-482E1855124C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossProjectSignalR.Core", "CrossProjectSignalR.Core\CrossProjectSignalR.Core.csproj", "{AE79086D-DF25-4A29-8A4A-03814CD524D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{FBEFB7D9-EBA6-4C15-B8BA-482E1855124C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBEFB7D9-EBA6-4C15-B8BA-482E1855124C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBEFB7D9-EBA6-4C15-B8BA-482E1855124C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE79086D-DF25-4A29-8A4A-03814CD524D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE79086D-DF25-4A29-8A4A-03814CD524D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE79086D-DF25-4A29-8A4A-03814CD524D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE79086D-DF25-4A29-8A4A-03814CD524D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
