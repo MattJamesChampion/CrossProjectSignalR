@@ -1,6 +1,9 @@
 @page "/"
 @using Microsoft.AspNetCore.SignalR.Client
+@using Microsoft.AspNetCore.SignalR
+@using CrossProjectSignalR.Core
 @inject NavigationManager NavigationManager
+@inject IHubContext<SharedChatHub, IChatHub> _chatHub
 @implements IAsyncDisposable
 
 @* https://docs.microsoft.com/en-us/aspnet/core/blazor/tutorials/signalr-blazor?view=aspnetcore-6.0&tabs=visual-studio&pivots=server#add-razor-component-code-for-chat-1 *@
@@ -42,7 +45,7 @@
             .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"))
             .Build();
 
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+        hubConnection.On<string, string>(nameof(IChatHub.ReceiveMessage), (user, message) =>
         {
             var encodedMsg = $"{user}: {message}";
             messages.Add(encodedMsg);
@@ -56,8 +59,16 @@
     {
         if (hubConnection is not null)
         {
-            await hubConnection.SendAsync("SendMessage", userInput, messageInput);
+            await hubConnection.SendAsync(nameof(SharedChatHub.SendMessage), userInput, messageInput);
         }
+        
+        //https://docs.microsoft.com/en-us/aspnet/core/signalr/hubcontext?view=aspnetcore-6.0#inject-a-strongly-typed-hubcontext
+        //Can also be done as follows to invoke ReceiveMessage on all listeners, but this bypasses
+        //the SharedChatHub instance method which may be used for logging, data enrichment etc.
+        // if (_chatHub is not null)
+        // {
+        //     await _chatHub.Clients.All.ReceiveMessage(userInput, messageInput);
+        // }
     }
 
     public bool IsConnected =>
