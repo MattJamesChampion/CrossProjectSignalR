@@ -11,4 +11,13 @@
       <Folder Include="Data" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.7" />
+      <PackageReference Include="Microsoft.Azure.SignalR" Version="1.18.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CrossProjectSignalR.Core\CrossProjectSignalR.Core.csproj" />
+    </ItemGroup>
+
 </Project>

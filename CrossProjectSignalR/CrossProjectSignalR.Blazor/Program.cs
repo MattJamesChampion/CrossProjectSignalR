@@ -1,8 +1,13 @@
+using CrossProjectSignalR.Core;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddSignalR()
+                .AddAzureSignalR();
 
 var app = builder.Build();
 
@@ -19,6 +24,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseFileServer();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chathub");
+});
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
