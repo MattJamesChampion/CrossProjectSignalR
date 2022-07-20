@@ -1,4 +1,5 @@
 using CrossProjectSignalR.Core;
+using CrossProjectSignalR.MVC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,7 @@ app.MapControllerRoute(
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<SharedChatHub>("/SharedMvcChatHub");
+    endpoints.MapHub<MvcChatHub>("/SeparateMvcChatHub");
 });
 
 app.Run();

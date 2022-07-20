@@ -1,5 +1,13 @@
 ﻿@page
 
+<label for="hubs">Choose a hub</label>
+<select id="hub-select">
+    <option value="/SharedMvcChatHub" selected="selected">Shared</option>
+    <option value="/SeparateMvcChatHub">Separate</option>
+</select>
+
+<button onclick="connectToHub()">Connect to hub</button>
+
 @* https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-6.0&tabs=visual-studio-code#add-signalr-client-code *@
 <div class="container">
     <div class="row">&nbsp;</div>
