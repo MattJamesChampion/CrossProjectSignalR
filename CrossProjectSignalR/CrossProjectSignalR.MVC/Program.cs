@@ -31,7 +31,7 @@ app.MapControllerRoute(
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<SharedChatHub>("/MvcChatHub");
+    endpoints.MapHub<SharedChatHub>("/SharedMvcChatHub");
 });
 
 app.Run();

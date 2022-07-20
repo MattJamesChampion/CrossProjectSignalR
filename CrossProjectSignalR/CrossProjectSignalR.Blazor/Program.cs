@@ -27,7 +27,7 @@ app.UseRouting();
 app.UseFileServer();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapHub<SharedChatHub>("/BlazorChatHub");
+    endpoints.MapHub<SharedChatHub>("/SharedBlazorChatHub");
 });
 
 app.MapBlazorHub();

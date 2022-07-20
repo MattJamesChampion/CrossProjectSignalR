@@ -42,7 +42,7 @@
     protected override async Task OnInitializedAsync()
     {
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(NavigationManager.ToAbsoluteUri("/BlazorChatHub"))
+            .WithUrl(NavigationManager.ToAbsoluteUri("/SharedBlazorChatHub"))
             .Build();
 
         hubConnection.On<string, string>(nameof(IChatHub.ReceiveMessage), (user, message) =>

@@ -2,7 +2,7 @@
 
 //https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-6.0&tabs=visual-studio-code#add-signalr-client-code
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/MvcChatHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/SharedMvcChatHub").build();
 
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
