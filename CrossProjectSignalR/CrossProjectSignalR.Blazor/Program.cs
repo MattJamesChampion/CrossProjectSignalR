@@ -1,3 +1,4 @@
+using CrossProjectSignalR.Blazor;
 using CrossProjectSignalR.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,7 @@ app.UseFileServer();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<SharedChatHub>("/SharedBlazorChatHub");
+    endpoints.MapHub<SeparateBlazorChatHub>("/SeparateBlazorChatHub");
 });
 
 app.MapBlazorHub();

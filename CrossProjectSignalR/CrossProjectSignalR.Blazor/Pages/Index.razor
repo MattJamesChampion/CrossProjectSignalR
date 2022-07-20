@@ -10,6 +10,14 @@
 
 <PageTitle>Index</PageTitle>
 
+<label for="hubs">Choose a hub</label>
+<select name="hubs" @bind="@selectedHubName">
+    <option value="@AvailableHubs.Shared">@AvailableHubs.Shared.ToString()</option>
+    <option value="@AvailableHubs.Separate">@AvailableHubs.Separate.ToString()</option>
+</select>
+
+<button onclick="@(() => ConnectToHub(SelectedHub))">Connect to Hub</button>
+
 <div class="form-group">
     <label>
         User:
@@ -38,11 +46,31 @@
     private List<string> messages = new List<string>();
     private string? userInput;
     private string? messageInput;
+    private string? selectedHubName = AvailableHubs.Shared.ToString();
+    private AvailableHubs SelectedHub => (AvailableHubs) Enum.Parse(typeof(AvailableHubs), selectedHubName);
+
+    private enum AvailableHubs
+    {
+        Shared,
+        Separate
+    }
 
     protected override async Task OnInitializedAsync()
     {
+        await ConnectToHub();
+    }
+
+    private async Task ConnectToHub(AvailableHubs availableHub = AvailableHubs.Shared)
+    {
+        if (hubConnection?.State == HubConnectionState.Connected)
+        {
+            await hubConnection.StopAsync();
+        }
+        
+        var hubEndpoint = availableHub == AvailableHubs.Shared ? "/SharedBlazorChatHub" : "/SeparateBlazorChatHub";
+
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(NavigationManager.ToAbsoluteUri("/SharedBlazorChatHub"))
+            .WithUrl(NavigationManager.ToAbsoluteUri(hubEndpoint))
             .Build();
 
         hubConnection.On<string, string>(nameof(IChatHub.ReceiveMessage), (user, message) =>
@@ -53,6 +81,8 @@
         });
 
         await hubConnection.StartAsync();
+
+        messages.Add($"Connected to hub: {availableHub.ToString()}");
     }
 
     private async Task Send()
@@ -61,7 +91,7 @@
         {
             await hubConnection.SendAsync(nameof(SharedChatHub.SendMessage), userInput, messageInput);
         }
-        
+
         //https://docs.microsoft.com/en-us/aspnet/core/signalr/hubcontext?view=aspnetcore-6.0#inject-a-strongly-typed-hubcontext
         //Can also be done as follows to invoke ReceiveMessage on all listeners, but this bypasses
         //the SharedChatHub instance method which may be used for logging, data enrichment etc.
